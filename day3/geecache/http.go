@@ -37,7 +37,9 @@ func (p *HTTPPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad request", http.StatusBadRequest)
 		return
 	}
+	// 获取路由中的第一个参数
 	groupname := parts[0]
+
 	key := parts[1]
 	// 我们约定访问路径格式为 /<basepath>/<groupname>/<key>，通过 groupname 得到 group 实例
 	group := GetGroup(groupname)
