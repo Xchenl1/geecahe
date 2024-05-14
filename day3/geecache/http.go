@@ -51,6 +51,7 @@ func (p *HTTPPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 	// 最终使用 w.Write() 将缓存值作为 httpResponse 的 body 返回
 	w.Header().Set("Content_type", "application/octet-stream")
 	w.Write(view.ByteSlice())

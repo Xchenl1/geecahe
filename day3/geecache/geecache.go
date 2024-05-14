@@ -44,12 +44,14 @@ func NewGroup(name string, cacheBytes int64, getter Getter) *Group {
 	groups[name] = g
 	return g
 }
+
 func GetGroup(name string) *Group {
 	mu.RLock()
 	g := groups[name]
 	mu.RUnlock()
 	return g
 }
+
 func (g *Group) Get(key string) (ByteView, error) {
 	if key == "" {
 		return ByteView{}, fmt.Errorf("key is required")
@@ -71,6 +73,7 @@ func (g *Group) getLocally(key string) (ByteView, error) {
 		return ByteView{}, err
 	}
 	value := ByteView{b: cloneByte(bytes)}
+	// 添加数据
 	g.populateCache(key, value)
 	return value, nil
 }

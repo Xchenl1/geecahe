@@ -44,20 +44,24 @@ func NewGroup(name string, cacheBytes int64, getter Getter) *Group {
 	groups[name] = g
 	return g
 }
+
 func GetGroup(name string) *Group {
 	mu.RLock()
 	g := groups[name]
 	mu.RUnlock()
 	return g
 }
+
 func (g *Group) Get(key string) (ByteView, error) {
 	if key == "" {
 		return ByteView{}, fmt.Errorf("key is required")
 	}
+	// 获取缓存值
 	if v, ok := g.mainCache.get(key); ok {
 		log.Println("[GeeCache] hit")
 		return v, nil
 	}
+	// 回调函数获取数据
 	return g.load(key)
 }
 
