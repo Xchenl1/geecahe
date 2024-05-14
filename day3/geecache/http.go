@@ -10,7 +10,7 @@ import (
 const defaultBasePath = "/_geecache/"
 
 type HTTPPool struct {
-	// 记录自己地址，包括主机名/IP 和端口
+	// 记录自己地址，包括主机名/IP 和 端口
 	self string
 	// 作为节点间通讯地址的前缀，默认是 /_geecache/
 	basePath string
